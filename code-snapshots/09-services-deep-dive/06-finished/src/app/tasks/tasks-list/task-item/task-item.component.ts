@@ -12,16 +12,21 @@ import { TasksServiceToken } from '../../../../main';
   styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
+
+  
   private tasksService = inject(TasksServiceToken);
+
   taskStatusOptions = inject(TASK_STATUS_OPTIONS);
+
   task = input.required<Task>();
+
   taskStatus = computed(() => {
     switch (this.task().status) {
       case 'OPEN':
         return 'Open';
-      case 'IN_PROGRESS':
+      case 'IN_PROGRESS': 
         return 'Working on it';
-      case 'DONE':
+      case 'DONE': 
         return 'Completed';
       default:
         return 'Open';

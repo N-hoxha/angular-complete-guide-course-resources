@@ -8,6 +8,8 @@ type TaskStatusOptions = {
   text: string;
 }[];
 
+// injektojme nje Token string ne TaskStatusOptions array i cilit i aksesojme nje cels unik string 'task-status-options' na ndimon te terheqim tedhenat: 
+// taskStatusOptions = inject(TASK_STATUS_OPTIONS);
 export const TASK_STATUS_OPTIONS = new InjectionToken<TaskStatusOptions>(
   'task-status-options'
 );
@@ -20,9 +22,9 @@ export const TaskStatusOptions: TaskStatusOptions = [
   },
   {
     value: 'in-progress',
-    taskStatus: 'IN_PROGRESS',
-    text: 'In-Progress',
-  },
+    taskStatus: 'IN_PROGRESS',  
+    text: 'In-Progress', 
+  }, 
   {
     value: 'done',
     taskStatus: 'DONE',
@@ -30,9 +32,14 @@ export const TaskStatusOptions: TaskStatusOptions = [
   },
 ];
 
+// Injection token bashke me data array: TaskStatusOptions e bashkagjisim ne nje Provider, 
+// per ta injektuar ate ne komponentin ku do ta perdorim @Component({ providers: [taskStatusOptionsProvider] }),
+// ose mund ta bashkagjisim ne te gjith platformen: 
+// bootstrapApplication(AppComponent, { providers: [{ provide: TasksServiceToken, useClass: TasksService }, taskStatusOptionsProvider] }).catch((err) => console.error(err));
+
 export const taskStatusOptionsProvider: Provider = {
   provide: TASK_STATUS_OPTIONS,
-  useValue: TaskStatusOptions
+  useValue: TaskStatusOptions // ndryshe nga bootstrapApplication, ketu nuk e kemi useClass por useValue sepse kemi nje array me vlera, kurse TasksService eshte nje class
 };
 
 export interface Task {
